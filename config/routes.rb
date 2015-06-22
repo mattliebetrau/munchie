@@ -1,4 +1,6 @@
 Munchie::Application.routes.draw do
+  post '/munchie' => 'munchie#munch'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
