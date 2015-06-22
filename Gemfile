@@ -9,6 +9,8 @@ gem 'rails'
 
 gem 'pg'
 
+gem 'activeadmin', github: 'activeadmin'
+
 # Use unicorn as the web server
 # gem 'unicorn'
 
