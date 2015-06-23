@@ -14,6 +14,8 @@ class MunchInteractor
       munch_suggestions(params, user, command)
     elsif command[:type] == 'imin'
       munch_join(params, user, command)
+    elsif command[:type] == 'imout'
+      munch_leave(params, user, command)
     else
       "I got @#{user.slack_handle} type: `#{command[:type]}` args: `#{command[:args]}`"
     end
@@ -33,6 +35,17 @@ class MunchInteractor
       "Enjoy #{location.to_short_slack_s}"
     else
       "No plan for "
+    end
+  end
+
+  def self.munch_leave(params, user, command)
+    args = command[:args].split
+    location = Location.where(:identifier => args.first).first
+
+    if user.plans.includes?(location)
+      user.plans.delete(location)
+    else
+      "You were not in #{location}"
     end
   end
 
