@@ -20,7 +20,7 @@ class MunchInteractor
   end
 
   def self.munch_suggestions(params, user, command)
-    plans = Plan.all
+    plans = Plan.active
 
     if plans.empty?
       location = Location.all.sample
@@ -29,7 +29,7 @@ class MunchInteractor
     else
       [
         "The following places have been suggested",
-        *Plan.all.map(&:location).map(&:to_slack_s)
+        *Plan.active.all.map(&:location).map(&:to_slack_s)
       ].join("\n\n")
     end
   end
@@ -40,9 +40,17 @@ class MunchInteractor
     location = Location.where(:identifier => args.first).first
 
     if location
-      Plan.create(:user => user, :location => location)
+      if Plan.active.where(:location => location).exists?
+        "*#{location.name}* has already been suggested!"
+      else
+        Plan.create({
+          :user     => user,
+          :location => location,
+          :eta_at   => 5.minutes.from_now,
+        })
 
-      "*#{location.name}* has been suggested!"
+        "*#{location.name}* has been suggested!"
+      end
     else
       "Location `#{args.first}` not found."
     end
