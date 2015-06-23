@@ -18,6 +18,8 @@ class MunchInteractor
       munch_total(params, user, command)
     elsif command[:type] == 'imout'
       munch_leave(params, user, command)
+    elsif command[:type] == 'help'
+      munch_help(params, user, command)  
     else
       "I got @#{user.slack_handle} type: `#{command[:type]}` args: `#{command[:args]}`"
     end
@@ -44,6 +46,15 @@ class MunchInteractor
 
   def self.munch_options(params, user, command)
     Location.all.map(&:to_short_slack_s).join("\n\n")
+  end
+
+  def self.munch_help(params, user, command)
+    "Hungry? Here's some stuff you can do with Munchie!\n\n
+    /munchie options = list of the available locations to eat\n
+    /munchie suggestions = list of plans people have already made\n
+    /munchie suggest <location> = creates a plan for others to join\n
+    /munchie imin <location> = joins a pre-existing plan\n
+    /munchie imout = leaves whatever plan you're apart of"
   end
 
   def self.munch_join(params, user, command)
