@@ -1,5 +1,7 @@
 ActiveAdmin.register Location do
 
+	permit_params :name, :website, :phone_number, :menu_url, :identifier
+	
 # See permitted parameters documentation:
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
 #
