@@ -31,7 +31,7 @@ class MunchInteractor
         total = $1
         plan.update_attributes!(:total => total)
 
-        amnt = Math.ceil(Float(total) / (plan.users.size + 1))
+        amnt = (Float(total) / (plan.users.size + 1)).ceil
 
         "Charged each user $#{amnt}"
       else
