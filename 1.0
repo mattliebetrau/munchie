@@ -1,0 +1,35 @@
+Successfully installed activesupport-3.2.22
+Successfully installed activemodel-3.2.22
+Successfully installed arel-3.0.3
+Successfully installed activerecord-3.2.22
+Successfully installed rack-1.4.7
+Successfully installed journey-1.0.4
+Successfully installed sprockets-2.2.3
+Successfully installed actionpack-3.2.22
+
+*** Thanks for installing MetaSearch! ***
+Be sure to check out http://metautonomo.us/projects/metasearch/ for a
+walkthrough of MetaSearch's features, and click the donate button if
+you're feeling especially appreciative. It'd help me justify this
+"open source" stuff to my lovely wife. :)
+
+Successfully installed meta_search-1.1.3
+Parsing documentation for activesupport-3.2.22
+Installing ri documentation for activesupport-3.2.22
+Parsing documentation for activemodel-3.2.22
+Installing ri documentation for activemodel-3.2.22
+Parsing documentation for arel-3.0.3
+Installing ri documentation for arel-3.0.3
+Parsing documentation for activerecord-3.2.22
+Installing ri documentation for activerecord-3.2.22
+Parsing documentation for rack-1.4.7
+Installing ri documentation for rack-1.4.7
+Parsing documentation for journey-1.0.4
+Installing ri documentation for journey-1.0.4
+Parsing documentation for sprockets-2.2.3
+Installing ri documentation for sprockets-2.2.3
+Parsing documentation for actionpack-3.2.22
+Installing ri documentation for actionpack-3.2.22
+Parsing documentation for meta_search-1.1.3
+Installing ri documentation for meta_search-1.1.3
+Done installing documentation for activesupport, activemodel, arel, activerecord, rack, journey, sprockets, actionpack, meta_search after 18 seconds
