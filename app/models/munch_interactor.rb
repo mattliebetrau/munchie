@@ -49,7 +49,7 @@ class MunchInteractor
   end
 
   def self.munch_help(params, user, command)
-    "Hungry? Here's some stuff you can do with Munchie!\n\n
+    "Hungry? Here's some stuff you can do with Munchie!\n
     /munchie options = list of the available locations to eat\n
     /munchie suggestions = list of plans people have already made\n
     /munchie suggest <location> = creates a plan for others to join\n
