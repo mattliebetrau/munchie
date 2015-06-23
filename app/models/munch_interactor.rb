@@ -43,7 +43,7 @@ class MunchInteractor
   end
 
   def self.munch_options(params, user, command)
-    Location.all.map(&:to_slack_s).join("\n\n")
+    Location.all.map(&:to_short_slack_s).join("\n\n")
   end
 
   def self.munch_join(params, user, command)
