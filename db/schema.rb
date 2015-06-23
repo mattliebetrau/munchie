@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(version: 20150623173959) do
     t.string "website"
     t.string "phone_number"
     t.string "menu_url"
+    t.string "identifier"
   end
 
   create_table "plan_users", force: :cascade do |t|
