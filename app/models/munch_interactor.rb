@@ -25,7 +25,7 @@ class MunchInteractor
     if plans.empty?
       location = Location.all.sample
 
-      "There are no current suggestions. How about *#{location.name}*"
+      "There are no current suggestions. How about *#{location.name}* (#{location.identifier})"
     else
       [
         "The following places have been suggested",
