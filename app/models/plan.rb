@@ -10,7 +10,7 @@ class Plan < ActiveRecord::Base
   def to_slack_s
     "#{location.to_short_slack_s} with:\n\n" +
 
-    " * @#{user.slack_handle} (Leader)" +
+    " * @#{user.slack_handle} (Leader)\n" +
     users.map {|u| " * @#{u.slack_handle}" }.join("\n")
   end
 
