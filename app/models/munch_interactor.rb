@@ -14,8 +14,28 @@ class MunchInteractor
       munch_suggestions(params, user, command)
     elsif command[:type] == 'imin'
       munch_join(params, user, command)
+    elsif command[:type] == 'total'
+      munch_total(params, user, command)
     else
       "I got @#{user.slack_handle} type: `#{command[:type]}` args: `#{command[:args]}`"
+    end
+  end
+
+  def self.munch_total(params, user, command)
+    plan = Plan.where(:user => user, :total => nil).last
+
+    if command[:args] =~ /(\d+\.?\d*)/
+      if plan
+        plan.update_attributes!(:total => $1)
+
+        amnt = Math.ceil(Float(total) / (plan.users.size + 1))
+
+        "Charged each user $#{amnt}"
+      else
+        "Already had a total set!"
+      end
+    else
+      "Bad total!"
     end
   end
 
