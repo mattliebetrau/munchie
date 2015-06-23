@@ -28,7 +28,8 @@ class MunchInteractor
 
     if command[:args] =~ /(\d+\.?\d*)/
       if plan
-        plan.update_attributes!(:total => $1)
+        total = $1
+        plan.update_attributes!(:total => total)
 
         amnt = Math.ceil(Float(total) / (plan.users.size + 1))
 
