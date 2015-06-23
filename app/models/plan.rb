@@ -3,4 +3,14 @@ class Plan < ActiveRecord::Base
 
   belongs_to :location
   belongs_to :user
+
+  has_many :plan_users
+  has_many :users, :through => :plan_users
+
+  def to_slack_s
+    "#{location.to_short_slack_s} with:\n\n" +
+
+    users.map {|u| " * @#{u.slack_handle}" }.join("\n")
+  end
+
 end

@@ -12,6 +12,8 @@ class MunchInteractor
       munch_suggest(params, user, command)
     elsif command[:type] == 'suggestions'
       munch_suggestions(params, user, command)
+    elsif command[:type] == 'imin'
+      munch_join(params, user, command)
     else
       "I got @#{user.slack_handle} type: `#{command[:type]}` args: `#{command[:args]}`"
     end
@@ -21,29 +23,41 @@ class MunchInteractor
     Location.all.map(&:to_slack_s).join("\n\n")
   end
 
+  def self.munch_join(params, user, command)
+    args = command[:args].split
+    location = Location.where(:identifier => args.first).first
+
+    if location && location.plans.active.exists?
+      user.plans << location.plans.active.first
+
+      "Enjoy #{location.to_short_slack_s}"
+    else
+      "No plan for "
+    end
+  end
+
   def self.munch_suggestions(params, user, command)
     plans = Plan.active
 
     if plans.empty?
       location = Location.all.sample
 
-      "There are no current suggestions. How about *#{location.name}* (#{location.identifier})?"
+      "There are no current suggestions. How about #{location.to_short_slack_s}?"
     else
       [
         "The following places have been suggested",
-        *Plan.active.all.map(&:location).map(&:to_slack_s)
+        *Plan.active.all.map(&:to_slack_s)
       ].join("\n\n")
     end
   end
 
   def self.munch_suggest(params, user, command)
     args = command[:args].split
-
     location = Location.where(:identifier => args.first).first
 
     if location
       if Plan.active.where(:location => location).exists?
-        "*#{location.name}* has already been suggested!"
+        "#{location.to_short_slack_s} has already been suggested!"
       else
         Plan.create({
           :user     => user,
@@ -51,7 +65,7 @@ class MunchInteractor
           :eta_at   => 5.minutes.from_now,
         })
 
-        "*#{location.name}* has been suggested!"
+        "#{location.to_short_slack_s} has been suggested!"
       end
     else
       "Location `#{args.first}` not found."
