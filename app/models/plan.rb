@@ -1,5 +1,5 @@
 class Plan < ActiveRecord::Base
-  scope :active, lambda { where('eta_at > ?', Time.now) }
+  scope :active, lambda { where('eta_at > ?', Time.now).where(:total => nil) }
 
   belongs_to :location
   belongs_to :user
