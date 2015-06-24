@@ -99,7 +99,7 @@ class MunchInteractor
   def self.munch_suggest(params, user, command)
     args = command[:args].split
     location = Location.where(:identifier => args.first).first
-    time = args[1].to_i.minutes.from_now
+    time = args[1].to_i.minutes.from_now.localtime.strftime('%r')
 
     if location
       if Plan.active.where(:location => location).exists?
@@ -111,7 +111,7 @@ class MunchInteractor
           :eta_at   => time,
         })
 
-        message = "#{location.to_short_slack_s} has been suggested! Leaving at #{time.localtime.strftime('%r')}...".inspect
+        message = "#{location.to_short_slack_s} has been suggested! Leaving at #{time}...".inspect
 
         User.all.each do |u|
           if u != user
