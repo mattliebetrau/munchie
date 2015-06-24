@@ -160,6 +160,7 @@ class MunchInteractor
             message("#{u.to_slack_s}", msg)
           end
         end
+        message("#munchie", msg)
 
         msg
       end
