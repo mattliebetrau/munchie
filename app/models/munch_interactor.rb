@@ -107,7 +107,7 @@ class MunchInteractor
         Plan.create({
           :user     => user,
           :location => location,
-          :eta_at   => 1.hour.from_now,
+          :eta_at   => 3.hour.from_now,
         })
 
         "#{location.to_short_slack_s} has been suggested!"
