@@ -97,7 +97,7 @@ class MunchInteractor
   def self.munch_join(params, user, command)
     args = command[:args].split
     location = Location.where(:identifier => args.first).first
-    order = args[1..-1]
+    order = args[1..-1].join(" ")
 
     if location && location.plans.active.exists?
       user.plan_users.create({
