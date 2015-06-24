@@ -99,7 +99,7 @@ class MunchInteractor
   def self.munch_suggest(params, user, command)
     args = command[:args].split
     location = Location.where(:identifier => args.first).first
-    time = args[1].minutes.from_now
+    time = args[1].to_i.minutes.from_now
 
     if location
       if Plan.active.where(:location => location).exists?
