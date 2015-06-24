@@ -58,14 +58,15 @@ class MunchInteractor
 
         plan.users.each do |u|
           username = "@#{u.slack_handle}"
-          venmo_handle = plan.user.venmo_handle
+          venmo_handle = URI.escape(plan.user.venmo_handle)
           identifier = plan.location.identifier
 
           if u.venmo_handle.present? && plan.user.venmo_handle.present?
-            message(username, "Please use vemmo to pay @#{plan.user.slack_handle} \$#{amnt}\n
-              https://venmo.com/?txn=payment&recipients=#{venmo_handle}&amount=#{amnt}&note=#{identifier}&audience=public")
+            venmo_url = "https://venmo.com/?txn=payment&recipients=#{venmo_handle}&amount=#{amnt}&note=#{identifier}&audience=public")
+
+            message(username, "Please use vemmo to pay @#{plan.user.slack_handle} <#{venmo_url}|$#{amnt}>"
           else
-            message(username, "Please use cash to pay @#{plan.user.slack_handle} \$#{amnt}")
+            message(username, "Please use cash to pay @#{plan.user.slack_handle} $#{amnt}")
           end
         end
 
