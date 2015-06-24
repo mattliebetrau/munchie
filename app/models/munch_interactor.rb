@@ -25,7 +25,7 @@ class MunchInteractor
       #`curl -X POST --data-urlencode 'payload={"channel": "#general", "username": "webhookbot", "text": "This is posted to #general and comes from a bot named webhookbot.", "icon_emoji": ":ghost:"}' https://hooks.slack.com/services/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
       #message = command[:args]
       #`curl -X POST --data-urlencode 'payload={"channel": "@#{user.slack_handle}", "username": "munchie", "text": #{message.inspect}, "icon_emoji": ":ghost:"}' https://hooks.slack.com/services/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`
-      message("munchie", command[:args])
+      message("@#{user.slack_handle}", command[:args])
     else
       "I got @#{user.slack_handle} type: `#{command[:type]}` args: `#{command[:args]}`"
     end
@@ -129,17 +129,15 @@ class MunchInteractor
           :eta_at   => time,
         })
 
-        message = "#{location.to_short_slack_s} has been suggested! Leaving in #{ActionController::Base.helpers.distance_of_time_in_words(Time.now, time)}...".inspect
+        msg = "#{location.to_short_slack_s} has been suggested! Leaving in #{ActionController::Base.helpers.distance_of_time_in_words(Time.now, time)}...".inspect
 
         User.all.each do |u|
           if u != user
-            output = `curl -d token="#{params[:token]}" -d channel=@#{user.slack_handle} -d text=#{message} -d username=Munchie -d pretty=1 https://slack.com/api/chat.postMessage`
-            Rails.logger.info(output)
-            #https://slack.com/api/chat.postMessage?token=xoxp-2233001589-3250296071-6798263879-47b6b4&channel=munchie&text=hi!&username=Munchie&pretty=1
+            message("@#{user.slack_handle}", msg)
           end
         end
 
-        message
+        msg
       end
     else
       "Location `#{args.first}` not found."
