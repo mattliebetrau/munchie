@@ -23,8 +23,8 @@ class MunchInteractor
     elsif command[:type] == 'debug'
       #`curl -d token="#{params[:token]}" -d channel=@#{user.slack_handle} -d text=#{command[:args].inspect} -d username=Munchie -d pretty=1 https://slack.com/api/chat.postMessage`
       #`curl -X POST --data-urlencode 'payload={"channel": "#general", "username": "webhookbot", "text": "This is posted to #general and comes from a bot named webhookbot.", "icon_emoji": ":ghost:"}' https://hooks.slack.com/services/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
-      message = command[:args].join(" ")
-      `curl -X POST --data-urlencode 'payload={"channel": "@#{user.slack_handle}", "username": "munchie", "text": "#{message}", "icon_emoji": ":ghost:"}' https://hooks.slack.com/services/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
+      message = command[:args]
+      `curl -X POST --data-urlencode 'payload={"channel": "@#{user.slack_handle}", "username": "munchie", "text": #{message.inspect}, "icon_emoji": ":ghost:"}' https://hooks.slack.com/services/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
     else
       "I got @#{user.slack_handle} type: `#{command[:type]}` args: `#{command[:args]}`"
     end
