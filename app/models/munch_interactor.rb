@@ -154,12 +154,6 @@ class MunchInteractor
         })
 
         msg = "#{location.to_short_slack_s} has been suggested by #{user.to_slack_s}! Leaving in #{ActionController::Base.helpers.distance_of_time_in_words(Time.now, time)}...".inspect
-
-        User.all.each do |u|
-          if u != user
-            message("#{u.to_slack_s}", msg)
-          end
-        end
         message("#munchie", msg)
 
         msg
