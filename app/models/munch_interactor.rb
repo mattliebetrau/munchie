@@ -26,6 +26,8 @@ class MunchInteractor
       #message = command[:args]
       #`curl -X POST --data-urlencode 'payload={"channel": "@#{user.slack_handle}", "username": "munchie", "text": #{message.inspect}, "icon_emoji": ":ghost:"}' https://hooks.slack.com/services/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`
       message("munchie", command[:args])
+    elsif command[:type] == 'myvenmo'
+      munch_myvenmo(params, user, command)         
     else
       "I got @#{user.slack_handle} type: `#{command[:type]}` args: `#{command[:args]}`"
     end
