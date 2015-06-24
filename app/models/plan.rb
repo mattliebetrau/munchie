@@ -14,4 +14,8 @@ class Plan < ActiveRecord::Base
     users.map {|u| " * @#{u.slack_handle}" }.join("\n")
   end
 
+  def eta_local_time(t)
+    t.strftime('%r')
+  end
+
 end
