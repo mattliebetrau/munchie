@@ -117,7 +117,7 @@ class MunchInteractor
         User.all.each do |u|
           if u != user
             message = "hi!".inspect
-            `curl -d token="#{params[:token]}" -d channel=munchie -d text=#{message} -d username=Munchie -d pretty=1 https://slack.com/api/chat.postMessage`
+            `curl -d token="#{params[:token]}" -d channel=@#{user.slack_handle} -d text=#{message} -d username=Munchie -d pretty=1 https://slack.com/api/chat.postMessage`
             #https://slack.com/api/chat.postMessage?token=xoxp-2233001589-3250296071-6798263879-47b6b4&channel=munchie&text=hi!&username=Munchie&pretty=1
           end
         end
