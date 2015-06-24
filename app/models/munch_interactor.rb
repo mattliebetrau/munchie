@@ -59,9 +59,9 @@ class MunchInteractor
           username = "@#{u.slack_handle}"
 
           if u.venmo_handle.present? && plan.user.venmo_handle.present?
-            message(username, "Please use vemmo to pay @#{plan.user} $#{amnt}")
+            message(username, "Please use vemmo to pay @#{plan.user.slack_handle} $#{amnt}")
           else
-            message(username, "Please use cash to pay @#{plan.user} $#{amnt}")
+            message(username, "Please use cash to pay @#{plan.user.slack_handle} $#{amnt}")
           end
         end
 
@@ -138,7 +138,7 @@ class MunchInteractor
           :eta_at   => time,
         })
 
-        msg = "#{location.to_short_slack_s} has been suggested! Leaving in #{ActionController::Base.helpers.distance_of_time_in_words(Time.now, time)}...".inspect
+        msg = "#{location.to_short_slack_s} has been suggested by @#{user.slack_handle}! Leaving in #{ActionController::Base.helpers.distance_of_time_in_words(Time.now, time)}...".inspect
 
         User.all.each do |u|
           if u != user
