@@ -74,11 +74,7 @@ class MunchInteractor
     args = command[:args].split
     location = Location.where(:identifier => args.first).first
 
-    if user.plans.includes?(location)
-      user.plans.delete(location)
-    else
-      "You were not in #{location}"
-    end
+    user.plans.find(location).destroy
   end
 
   def self.munch_suggestions(params, user, command)
