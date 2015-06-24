@@ -97,6 +97,11 @@ class MunchInteractor
   def self.munch_join(params, user, command)
     args = command[:args].split
     location = Location.where(:identifier => args.first).first
+    order = args[1..-1]
+
+    plan_user.update_attributes!({
+      :order => order
+    }) 
 
     if location && location.plans.active.exists?
       user.plans << location.plans.active.first
@@ -106,7 +111,7 @@ class MunchInteractor
       "No plan for "
     end
   end
-
+  
   def self.munch_leave(params, user, command)
     args = command[:args].split
     location = Location.where(:identifier => args.first).first

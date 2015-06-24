@@ -11,7 +11,7 @@ class Plan < ActiveRecord::Base
     "#{location.to_short_slack_s}. Leaving at #{eta_at} with:\n\n" +
 
     " * @#{user.slack_handle} (Leader)\n" +
-    users.map {|u| " * @#{u.slack_handle}" }.join("\n")
+    users.map {|u| " * @#{u.slack_handle} ordering #{plan.plan_users.order}" }.join("\n")
   end
 
 end
