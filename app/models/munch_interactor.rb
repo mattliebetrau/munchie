@@ -141,5 +141,14 @@ class MunchInteractor
     }).first_or_create
   end
 
+  def self.munch_myvenmo(params, user, command)
+    args = command[:args]
+    venmo = args.first
+    user.update_attributes!({
+      :venmo_handle => venmo
+    })
+
+    "Thanks for setting up Venmo!" 
+  end
   
 end
