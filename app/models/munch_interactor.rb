@@ -55,10 +55,10 @@ class MunchInteractor
 
         amnt = (Float(total) / (plan.users.size + 1)).ceil
 
-        plan.users.each do |user|
-          username = "@#{user.slack_handle}"
+        plan.users.each do |u|
+          username = "@#{u.slack_handle}"
 
-          if user.venmo_handle.present?
+          if u.venmo_handle.present? && plan.user.venmo_handle.present?
             message(username, "Please use vemmo to pay @#{plan.user} $#{amnt}")
           else
             message(username, "Please use cash to pay @#{plan.user} $#{amnt}")
@@ -142,7 +142,7 @@ class MunchInteractor
 
         User.all.each do |u|
           if u != user
-            message("@#{user.slack_handle}", msg)
+            message("@#{u.slack_handle}", msg)
           end
         end
 
