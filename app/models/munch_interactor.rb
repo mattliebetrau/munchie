@@ -59,9 +59,9 @@ class MunchInteractor
           username = "@#{u.slack_handle}"
 
           if u.venmo_handle.present? && plan.user.venmo_handle.present?
-            message(username, "Please use vemmo to pay @#{plan.user.slack_handle} $#{amnt}")
+            message(username, "Please use vemmo to pay @#{plan.user.slack_handle} \$#{amnt}")
           else
-            message(username, "Please use cash to pay @#{plan.user.slack_handle} $#{amnt}")
+            message(username, "Please use cash to pay @#{plan.user.slack_handle} \$#{amnt}")
           end
         end
 
