@@ -34,7 +34,7 @@ class MunchInteractor
     payload = {
       "channel" => channel,
       "username" => "munchie",
-      "icon_emoji" => ":ghost:",
+      "icon_emoji" => ":munchie:",
       "text" => message,
     }
 
