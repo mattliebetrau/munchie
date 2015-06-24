@@ -111,7 +111,7 @@ class MunchInteractor
           :eta_at   => time,
         })
 
-        message = "#{location.to_short_slack_s} has been suggested! #{eta_time}...".inspect
+        message = "#{location.to_short_slack_s} has been suggested! #{time}...".inspect
 
         User.all.each do |u|
           if u != user
