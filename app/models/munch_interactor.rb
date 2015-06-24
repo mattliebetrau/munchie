@@ -39,10 +39,11 @@ class MunchInteractor
     }
 
     data = "payload=#{payload.to_json}"
+    string = data.inspect.gsub("$", '\$')
 
-    Rails.logger.info(data)
+    Rails.logger.info(string)
 
-    `curl -X POST --data-urlencode #{data.inspect} https://hooks.slack.com/services/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`
+    `curl -X POST --data-urlencode #{string} https://hooks.slack.com/services/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`
   end
 
   def self.munch_total(params, user, command)
@@ -125,7 +126,11 @@ class MunchInteractor
   def self.munch_suggest(params, user, command)
     args = command[:args].split
     location = Location.where(:identifier => args.first).first
-    time = args[1].to_i.minutes.from_now
+    time = if args[1].present?
+      args[1].to_i.minutes.from_now
+    else
+      10.minutes.from_now
+    end
 
 
     if location
