@@ -22,11 +22,11 @@ class MunchInteractor
       munch_help(params, user, command)  
     elsif command[:type] == 'debug'
       #`curl -X POST --data-urlencode 'payload={"channel": "#general", "username": "webhookbot", "text": "This is posted to #general and comes from a bot named webhookbot.", "icon_emoji": ":ghost:"}' https://hooks.slack.com/services/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
-      message("@#{user.slack_handle}", command[:args])
+      message("#{user.to_slack_s}", command[:args])
     elsif command[:type] == 'myvenmo'
       munch_myvenmo(params, user, command)         
     else
-      "I got @#{user.slack_handle} type: `#{command[:type]}` args: `#{command[:args]}`"
+      "I got #{user.to_slack_s} type: `#{command[:type]}` args: `#{command[:args]}`"
     end
   end
 
@@ -57,16 +57,16 @@ class MunchInteractor
         amnt = (Float(total) / (plan.users.size + 1)).ceil
 
         plan.users.each do |u|
-          username = "@#{u.slack_handle}"
+          username = "#{u.to_slack_s}"
           venmo_handle = URI.escape(plan.user.venmo_handle)
           identifier = plan.location.identifier
 
           if u.venmo_handle.present? && plan.user.venmo_handle.present?
             venmo_url = "https://venmo.com/?txn=payment&recipients=#{venmo_handle}&amount=#{amnt}&note=#{identifier}&audience=public")
 
-            message(username, "Please use vemmo to pay @#{plan.user.slack_handle} <#{venmo_url}|$#{amnt}>"
+            message(username, "Please use vemmo to pay #{plan.user.to_slack_s} <#{venmo_url}|$#{amnt}>"
           else
-            message(username, "Please use cash to pay @#{plan.user.slack_handle} $#{amnt}")
+            message(username, "Please use cash to pay #{plan.user.to_slack_s} $#{amnt}")
           end
         end
 
@@ -154,11 +154,11 @@ class MunchInteractor
           :eta_at   => time,
         })
 
-        msg = "#{location.to_short_slack_s} has been suggested by @#{user.slack_handle}! Leaving in #{ActionController::Base.helpers.distance_of_time_in_words(Time.now, time)}...".inspect
+        msg = "#{location.to_short_slack_s} has been suggested by #{user.to_slack_s}! Leaving in #{ActionController::Base.helpers.distance_of_time_in_words(Time.now, time)}...".inspect
 
         User.all.each do |u|
           if u != user
-            message("@#{u.slack_handle}", msg)
+            message("#{u.to_slack_s}", msg)
           end
         end
 

@@ -10,8 +10,12 @@ class Plan < ActiveRecord::Base
   def to_slack_s
     "#{location.to_short_slack_s}. Leaving at #{eta_at} with:\n\n" +
 
-    " * @#{user.slack_handle} (Leader)\n" +
-    users.map {|u| " * @#{u.slack_handle} ordering #{plan.plan_users.order}" }.join("\n")
+    " * #{user.to_slack_s} (Leader) ordering #{plan_user_for(u).order}\n" +
+    users.map {|u| " * #{u.to_slack_s} ordering #{plan_user_for(u).order}" }.join("\n")
+  end
+
+  def plan_user_for(user)
+    plan_users.where(:user => user)
   end
 
 end

@@ -4,4 +4,8 @@ class User < ActiveRecord::Base
 
   # Plans that the user is going along with
   has_many :lead_plans, :class => Plan
+
+  def to_slack_s
+    "@#{slack_handle}"
+  end
 end
