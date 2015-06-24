@@ -99,12 +99,11 @@ class MunchInteractor
     location = Location.where(:identifier => args.first).first
     order = args[1..-1]
 
-    plan_user.update_attributes!({
-      :order => order
-    }) 
-
     if location && location.plans.active.exists?
-      user.plans << location.plans.active.first
+      user.plan_users.create({
+        :plan => location.plans.active.first,
+        :order => order,
+      })
 
       "Enjoy #{location.to_short_slack_s}"
     else
