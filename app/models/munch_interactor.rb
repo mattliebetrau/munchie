@@ -143,4 +143,8 @@ class MunchInteractor
       :slack_handle => params[:user_name].downcase
     }).first_or_create
   end
+
+  def eta_local_time(t)
+    t.strftime('%r')
+  end
 end
