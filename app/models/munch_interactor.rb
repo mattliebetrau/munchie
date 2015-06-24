@@ -88,7 +88,9 @@ class MunchInteractor
     /munchie suggestions = list of plans people have already made\n
     /munchie suggest <location> = creates a plan for others to join\n
     /munchie imin <location> = joins a pre-existing plan\n
-    /munchie imout = leaves whatever plan you're apart of"
+    /munchie imout = leaves whatever plan you're a part of\n
+    /munchie total <amount ex. $24.50> = divides order total among people in group\n
+    /munchie myvenmo <venmo username> = adds your venmo name to your account"
   end
 
   def self.munch_join(params, user, command)
@@ -179,8 +181,7 @@ class MunchInteractor
   end
 
   def self.munch_myvenmo(params, user, command)
-    args = command[:args].split
-    venmo = args.first
+    venmo = args
     user.update_attributes!({
       :venmo_handle => venmo
     })
