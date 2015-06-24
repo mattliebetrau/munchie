@@ -20,6 +20,8 @@ class MunchInteractor
       munch_leave(params, user, command)
     elsif command[:type] == 'help'
       munch_help(params, user, command)  
+    elsif command[:type] == 'debug'
+      `curl -d token="#{params[:token]}" -d channel=@#{user.slack_handle} -d text=#{command[:args].inspect} -d username=Munchie -d pretty=1 https://slack.com/api/chat.postMessage`
     else
       "I got @#{user.slack_handle} type: `#{command[:type]}` args: `#{command[:args]}`"
     end
@@ -112,7 +114,8 @@ class MunchInteractor
 
         User.all.each do |u|
           if u != user
-            `curl -d token="#{params[:token]}" -d channel=@#{user.slack_handle} -d text=#{message} -d username=Munchie -d pretty=1 https://slack.com/api/chat.postMessage`
+            output = `curl -d token="#{params[:token]}" -d channel=@#{user.slack_handle} -d text=#{message} -d username=Munchie -d pretty=1 https://slack.com/api/chat.postMessage`
+            Rails.logger.info(output)
             #https://slack.com/api/chat.postMessage?token=xoxp-2233001589-3250296071-6798263879-47b6b4&channel=munchie&text=hi!&username=Munchie&pretty=1
           end
         end
