@@ -156,7 +156,7 @@ class MunchInteractor
         msg = "#{location.to_short_slack_s} has been suggested by #{user.to_slack_s}! Leaving in #{ActionController::Base.helpers.distance_of_time_in_words(Time.now, time)}...".inspect
         message("#munchie", msg)
 
-        msg
+        nil
       end
     else
       "Location `#{args.first}` not found."
