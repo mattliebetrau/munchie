@@ -179,7 +179,7 @@ class MunchInteractor
   end
 
   def self.munch_myvenmo(params, user, command)
-    args = command[:args]
+    args = command[:args].split
     venmo = args.first
     user.update_attributes!({
       :venmo_handle => venmo
