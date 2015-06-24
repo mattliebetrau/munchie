@@ -114,7 +114,7 @@ class MunchInteractor
           :eta_at   => time,
         })
 
-        message = "#{location.to_short_slack_s} has been suggested! Leaving in #{distance_of_time_in_words(Time.now, time)}..." 
+        message = "#{location.to_short_slack_s} has been suggested! Leaving in #{ActionController::Base.helpers.distance_of_time_in_words(Time.now, time)}..." 
 
         User.all.each do |u|
           if u != user
