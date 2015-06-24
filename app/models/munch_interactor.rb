@@ -111,7 +111,7 @@ class MunchInteractor
           :eta_at   => time,
         })
 
-        message = "#{location.to_short_slack_s} has been suggested! Leaving at #{eta_local_time(time)}...".inspect
+        message = "#{location.to_short_slack_s} has been suggested! Leaving at #{time.strftime('%r')}...".inspect
 
         User.all.each do |u|
           if u != user
@@ -144,7 +144,5 @@ class MunchInteractor
     }).first_or_create
   end
 
-  def eta_local_time(t)
-    t.strftime('%r')
-  end
+  
 end
