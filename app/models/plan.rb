@@ -15,7 +15,7 @@ class Plan < ActiveRecord::Base
   end
 
   def plan_user_for(user)
-    plan_users.where(:user => user)
+    plan_users.where(:user => user).first
   end
 
 end
