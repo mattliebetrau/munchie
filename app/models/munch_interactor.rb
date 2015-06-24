@@ -97,6 +97,7 @@ class MunchInteractor
     location = Location.where(:identifier => args.first).first
     time = args[1].to_i.minutes.from_now.in_time_zone('Eastern Time (US & Canada)').strftime('%r')
 
+
     if location
       if Plan.active.where(:location => location).exists?
         "#{location.to_short_slack_s} has already been suggested!"
@@ -107,7 +108,7 @@ class MunchInteractor
           :eta_at   => time,
         })
 
-        message = "#{location.to_short_slack_s} has been suggested! Leaving at #{time}...".inspect
+        message = "#{location.to_short_slack_s} has been suggested! Leaving at #{ActionController::Base.helpers.distance_of_time_in_words(Time.now, time)}...".inspect
 
         User.all.each do |u|
           if u != user
