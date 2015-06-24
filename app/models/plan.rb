@@ -11,7 +11,15 @@ class Plan < ActiveRecord::Base
     "#{location.to_short_slack_s}. Leaving at #{eta_at} with:\n\n" +
 
     " * #{user.to_slack_s} (Leader)\n" +
-    users.map {|u| " * #{u.to_slack_s} ordering #{plan_user_for(u).order}" }.join("\n")
+    users.map {|u|
+      pu = plan_user_for(u)
+
+      if pu
+        " * #{u.to_slack_s}  _\"#{pu.order}\"_"
+      else
+        " * #{u.to_slack_s}"
+      end
+    }.join("\n")
   end
 
   def plan_user_for(user)
