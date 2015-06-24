@@ -21,11 +21,10 @@ class MunchInteractor
     elsif command[:type] == 'help'
       munch_help(params, user, command)  
     elsif command[:type] == 'debug'
-      #`curl -d token="#{params[:token]}" -d channel=@#{user.slack_handle} -d text=#{command[:args].inspect} -d username=Munchie -d pretty=1 https://slack.com/api/chat.postMessage`
       #`curl -X POST --data-urlencode 'payload={"channel": "#general", "username": "webhookbot", "text": "This is posted to #general and comes from a bot named webhookbot.", "icon_emoji": ":ghost:"}' https://hooks.slack.com/services/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
-      #message = command[:args]
-      #`curl -X POST --data-urlencode 'payload={"channel": "@#{user.slack_handle}", "username": "munchie", "text": #{message.inspect}, "icon_emoji": ":ghost:"}' https://hooks.slack.com/services/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`
       message("@#{user.slack_handle}", command[:args])
+    elsif command[:type] == 'myvenmo'
+      munch_myvenmo(params, user, command)         
     else
       "I got @#{user.slack_handle} type: `#{command[:type]}` args: `#{command[:args]}`"
     end
@@ -55,6 +54,16 @@ class MunchInteractor
         plan.update_attributes!(:total => total)
 
         amnt = (Float(total) / (plan.users.size + 1)).ceil
+
+        plan.users.each do |user|
+          username = "@#{user.slack_handle}"
+
+          if user.venmo_handle.present?
+            message(username, "Please use vemmo to pay @#{plan.user} $#{amnt}")
+          else
+            message(username, "Please use cash to pay @#{plan.user} $#{amnt}")
+          end
+        end
 
         "Charged each user $#{amnt}"
       else
