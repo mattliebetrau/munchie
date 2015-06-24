@@ -64,7 +64,7 @@ class MunchInteractor
           if u.venmo_handle.present? && plan.user.venmo_handle.present?
             venmo_url = "https://venmo.com/?txn=payment&recipients=#{venmo_handle}&amount=#{amnt}&note=#{identifier}&audience=public"
 
-            message(username, "Please use vemmo to pay #{plan.user.to_slack_s} <#{venmo_url}|$#{amnt}>"
+            message(username, "Please use vemmo to pay #{plan.user.to_slack_s} <#{venmo_url}|$#{amnt}>")
           else
             message(username, "Please use cash to pay #{plan.user.to_slack_s} $#{amnt}")
           end
