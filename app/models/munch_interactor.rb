@@ -88,8 +88,7 @@ class MunchInteractor
     /munchie options = list of the available locations to eat\n
     /munchie suggestions = list of plans people have already made\n
     /munchie suggest <location> = creates a plan for others to join\n
-    /munchie imin <location> = joins a pre-existing plan\n
-    /munchie imout = leaves whatever plan you're a part of\n
+    /munchie imin <location> <order>= joins a pre-existing plan\n
     /munchie total <amount ex. $24.50> = divides order total among people in group\n
     /munchie myvenmo <venmo username> = adds your venmo name to your account"
   end
